@@ -1,4 +1,6 @@
-Hello, my name is Rob.
-I like drinking tea and eating chocolate biscuits.
-I am enjoying teaching IBI1 in person again 
-I am happy that I can push my repo from Visual Studio Code to GitHub
+Hello, my name is Hanyu.
+I like drinking tea,coffe and beer! and eating biscuits.
+'''I am enjoying teaching IBI1 in person again 
+I am happy that I can push my repo from Visual Studio Code to GitHub'''
+this is Rob, a nice teacher!
+I'm glad to have IBI1 course!
