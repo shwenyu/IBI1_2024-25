@@ -13,7 +13,15 @@ else:
 ical4/variables.py 
 f > c'''
 
-X=True
-Y=False
-W= X and Y
-print(W)
+for X in (True, False):
+	for Y in (True, False):
+		W= X and Y
+		print(X,"and",Y,"=",W)    
+       
+'''hwenyu@hanyudeMacBook-Pro IBI1_2024-25 % /usr/bin/python3 /Users/shwenyu/Documents/GitHub/IBI1_2024-25/Practica
+l4/variables.py
+f > c
+True and True = True
+True and False = False
+False and True = False
+False and False = False'''
