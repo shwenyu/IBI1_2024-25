@@ -1,0 +1,6 @@
+This course and three projects are much trickier than previous ones.
+For the first two programs, it takes time to find out how to succeed the bionomial graph
+The third one is the most difficult, in which I use recursion but failed because limited infection scope.
+My first thought was to use recursion, but something wrong and only small range of population infected.
+That may caused by contradictory parts of loop
+Then I used normal loops with better judgement and that works.
