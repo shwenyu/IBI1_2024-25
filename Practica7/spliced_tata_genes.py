@@ -92,12 +92,16 @@ def splice(seq):
     # Construct the new spliced sequence
     if valid_donors and valid_acceptors:  # Check if valid pairs exist
         new_seq = ""  # Initialize the new sequence
+        last_position = 0  # Track the position to start keeping sequence parts
         for d, a in zip(valid_donors, valid_acceptors):  # Iterate through valid donor/acceptor pairs
-            new_seq += seq[d + 2:a]  # Extract subsequence from donor+2 to acceptor
+            new_seq += seq[last_position:d]  # Add the part before the donor site
+            last_position = a + len(acceptor)  # Update the position to start after the acceptor site
+        new_seq += seq[last_position:]  # Add the remaining sequence after the last acceptor
     else:
         new_seq = seq  # If no valid pairs, return the original sequence
 
     return new_seq  # Return the spliced sequence
+
 
 def count_tata(seq):
     # Function to count TATA box occurrences in a sequence

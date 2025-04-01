@@ -9,7 +9,7 @@ def read_fasta(file_path):
     current_gene = None  # Variable to track the current gene being processed
     
     # Open the FASTA file for reading
-    with open('Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa', 'r') as file:
+    with open(file_path, 'r') as file:
         for line in file:  # Iterate through each line in the file
             line = line.strip()  # Remove leading/trailing whitespace from the line
             if line.startswith('>'):  # Check if the line is a header line
@@ -28,28 +28,29 @@ def read_fasta(file_path):
             genes[current_gene] = ''.join(genes[current_gene])  # Join sequence parts
 
         return genes  # Return the dictionary of genes and their sequences
+    
+file_path = "Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa"
+# file_path stores the path to the input FASTA file
+# Define a function to read a FASTA file and parse its contents
 
 # Call the read_fasta function to parse the input file and store the result in find_genes
 find_genes = read_fasta(file_path)
-
+#print(find_genes)
 # Initialize a dictionary to store genes containing the TATA box pattern
 find_tata_gene = {}
 
 # Iterate through each gene and its sequence in the parsed data
 for gene_name, sequence in find_genes.items():
     # Search for the TATA box pattern in the sequence
-    find_tata = re.findall(r"TATA[A,T]A[A,T]", sequence)
-    if len(find_genes) > 0:  # If the gene contains the TATA box pattern
+    find_tata = re.search(r"TATA[AT]A[AT]", sequence)
+    #print(find_tata)
+    if find_tata:  # If the gene contains the TATA box pattern
         find_tata_gene[gene_name] = sequence  # Add the gene to the dictionary
-
-# Open an output file to write the genes containing the TATA box pattern
-output = open("tata_genes.fa", "w")
-
-# Iterate through each gene and its sequence in the parsed data
-for gene_name, sequence in find_genes.items():
-    gene_name = gene_name + "\n"  # Add a newline character to the gene name
-    output.write(gene_name)  # Write the gene name to the output file
-    sequence = sequence + "\n"  # Add a newline character to the sequence
-    output.write(sequence)  # Write the sequence to the output file
-
-output.close()  # Close the output file
+#print(find_tata_gene)
+# Write the genes containing the TATA box pattern to an output file
+output_file = "tata_genes.fa"
+with open(output_file, "w") as output:
+    for gene_name, sequence in find_tata_gene.items():
+        # Write the gene name and sequence in FASTA format
+        output.write(f">{gene_name}\n")
+        output.write(f"{sequence}\n")
