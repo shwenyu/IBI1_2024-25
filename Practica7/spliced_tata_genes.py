@@ -1,25 +1,27 @@
-import re
-splice_comb = input("What is your splice_combination (GTAG, GCAG,ATAC):")
-file_path = "tata_genes.fa"
-donor = splice_comb[0:2]
-acceptor = splice_comb[2:4]
-def read_fasta(file_path):
-    genes = {}  # Dictionary to store gene parts
-    current_gene = None  # Track the current gene being read
-    
-    with open(file_path, 'r') as file:
-        for line in file:
-            line = line.strip()  # Remove leading/trailing whitespace
-            if line.startswith('>'):  # Header line
-                if current_gene is not None:  # Save the previous gene
-                    genes[current_gene] = ''.join(genes[current_gene])
-                current_gene = line[1:]  # Extract gene name (remove '>')
-                genes[current_gene] = []  # Initialize sequence list
-            else:  # Sequence line
-                if current_gene is not None:
-                    genes[current_gene].append(line)
+import re  # Import the regular expression module
+splice_comb = input("What is your splice_combination (GTAG, GCAG,ATAC):")  # Get splice combination from user input
+file_path = "tata_genes.fa"  # Define the file path for the input FASTA file
+donor = splice_comb[0:2]  # Extract donor sequence from splice_combination
+acceptor = splice_comb[2:4]  # Extract acceptor sequence from splice_combination
 
-        # Save the last gene
+def read_fasta(file_path):
+    # Function to read a FASTA file and return a dictionary of gene sequences
+    genes = {}  # Initialize a dictionary to store gene sequences
+    current_gene = None  # Variable to track the current gene being read
+    
+    with open(file_path, 'r') as file:  # Open the FASTA file for reading
+        for line in file:  # Iterate through each line in the file
+            line = line.strip()  # Remove leading/trailing whitespace
+            if line.startswith('>'):  # Check if the line is a header
+                if current_gene is not None:  # If a gene is being tracked, save its sequence
+                    genes[current_gene] = ''.join(genes[current_gene])  # Join sequence parts
+                current_gene = line[1:]  # Extract gene name (remove '>')
+                genes[current_gene] = []  # Initialize sequence list for the gene
+            else:  # If the line is a sequence
+                if current_gene is not None:  # Ensure a gene is being tracked
+                    genes[current_gene].append(line)  # Append sequence part to the gene
+
+        # Save the last gene after finishing the file
         if current_gene is not None:
             genes[current_gene] = ''.join(genes[current_gene])
 
@@ -64,55 +66,55 @@ def read_fasta(file_path):
     return(new_seq)'''
 
 def splice(seq):
-    global donor, acceptor
-    donor_matches = re.finditer(donor, seq)
-    acceptor_matches = re.finditer(acceptor, seq)
-    donor_positions = sorted([match.start() for match in donor_matches])
-    acceptor_positions = sorted([match.start() for match in acceptor_matches])
+    # Function to splice a sequence based on donor and acceptor sites
+    global donor, acceptor  # Use global donor and acceptor variables
+    donor_matches = re.finditer(donor, seq)  # Find all donor matches in the sequence
+    acceptor_matches = re.finditer(acceptor, seq)  # Find all acceptor matches in the sequence
+    donor_positions = sorted([match.start() for match in donor_matches])  # Get sorted donor positions
+    acceptor_positions = sorted([match.start() for match in acceptor_matches])  # Get sorted acceptor positions
 
-    # Initialize lists to store valid pairs
+    # Initialize lists to store valid donor and acceptor positions
     valid_donors = []
     valid_acceptors = []
 
     # Find non-overlapping donor/acceptor pairs
-    i, j = 0, 0
-    while i < len(donor_positions) and j < len(acceptor_positions):
-        if donor_positions[i] < acceptor_positions[j]:
-            # Ensure no overlap with the previous acceptor
-            if not valid_acceptors or donor_positions[i] > valid_acceptors[-1]:
-                valid_donors.append(donor_positions[i])
-                valid_acceptors.append(acceptor_positions[j])
-            i += 1
-            j += 1
+    i, j = 0, 0  # Initialize indices for donor and acceptor positions
+    while i < len(donor_positions) and j < len(acceptor_positions):  # Loop through positions
+        if donor_positions[i] < acceptor_positions[j]:  # Check if donor is before acceptor
+            if not valid_acceptors or donor_positions[i] > valid_acceptors[-1]:  # Ensure no overlap
+                valid_donors.append(donor_positions[i])  # Add donor position to valid list
+                valid_acceptors.append(acceptor_positions[j])  # Add acceptor position to valid list
+            i += 1  # Move to the next donor position
+            j += 1  # Move to the next acceptor position
         else:
-            j += 1
+            j += 1  # Move to the next acceptor position if donor is not valid
 
-    # Construct the new sequence
-    if valid_donors and valid_acceptors:
-        new_seq = ""
-        for d, a in zip(valid_donors, valid_acceptors):
+    # Construct the new spliced sequence
+    if valid_donors and valid_acceptors:  # Check if valid pairs exist
+        new_seq = ""  # Initialize the new sequence
+        for d, a in zip(valid_donors, valid_acceptors):  # Iterate through valid donor/acceptor pairs
             new_seq += seq[d + 2:a]  # Extract subsequence from donor+2 to acceptor
     else:
-        new_seq = seq
+        new_seq = seq  # If no valid pairs, return the original sequence
 
-    return new_seq
+    return new_seq  # Return the spliced sequence
 
 def count_tata(seq):
-    find_tata = re.findall(r"TATA[A,T]A[A,T]", seq)
-    count = len(find_tata)
-    return(count)
+    # Function to count TATA box occurrences in a sequence
+    find_tata = re.findall(r"TATA[A,T]A[A,T]", seq)  # Find all TATA box matches
+    count = len(find_tata)  # Count the number of matches
+    return(count)  # Return the count
 
-genes = read_fasta(file_path)
-spliced_genes = {}
-output = open(f"{splice_comb}_spliced_genes.fa", "w")
-for gene_name, sequence in genes.items():
-    #print(sequence)
-    new_sequence = splice(sequence)
-    spliced_genes[gene_name] = new_sequence
-    gene_name = ">" + gene_name + "\n"
-    output.write(gene_name)
-    new_sequence_o = new_sequence + "\n"
-    output.write(new_sequence_o)
-    count = count_tata(new_sequence)
-    output.write(f"TATA box number: {count}\n")
-output.close()
+genes = read_fasta(file_path)  # Read the input FASTA file into a dictionary
+spliced_genes = {}  # Initialize a dictionary to store spliced genes
+output = open(f"{splice_comb}_spliced_genes.fa", "w")  # Open an output file for writing spliced genes
+for gene_name, sequence in genes.items():  # Iterate through each gene and its sequence
+    new_sequence = splice(sequence)  # Splice the sequence
+    spliced_genes[gene_name] = new_sequence  # Store the spliced sequence in the dictionary
+    gene_name = ">" + gene_name + "\n"  # Format the gene name for FASTA output
+    output.write(gene_name)  # Write the gene name to the output file
+    new_sequence_o = new_sequence + "\n"  # Format the spliced sequence for FASTA output
+    output.write(new_sequence_o)  # Write the spliced sequence to the output file
+    count = count_tata(new_sequence)  # Count TATA boxes in the spliced sequence
+    output.write(f"TATA box number: {count}\n")  # Write the TATA box count to the output file
+output.close()  # Close the output file
