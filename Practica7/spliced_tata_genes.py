@@ -89,7 +89,11 @@ def splice(seq):
         else:
             j += 1  # Move to the next acceptor position if donor is not valid
 
-    # Construct the new spliced sequence
+    if valid_acceptors and valid_donors:
+        return True
+    else:
+        return False
+    '''# Construct the new spliced sequence
     if valid_donors and valid_acceptors:  # Check if valid pairs exist
         new_seq = ""  # Initialize the new sequence
         last_position = 0  # Track the position to start keeping sequence parts
@@ -100,7 +104,7 @@ def splice(seq):
     else:
         new_seq = seq  # If no valid pairs, return the original sequence
 
-    return new_seq  # Return the spliced sequence
+    return new_seq  # Return the spliced sequence'''
 
 
 def count_tata(seq):
@@ -111,14 +115,21 @@ def count_tata(seq):
 
 genes = read_fasta(file_path)  # Read the input FASTA file into a dictionary
 spliced_genes = {}  # Initialize a dictionary to store spliced genes
-output = open(f"{splice_comb}_spliced_genes.fa", "w")  # Open an output file for writing spliced genes
-for gene_name, sequence in genes.items():  # Iterate through each gene and its sequence
-    new_sequence = splice(sequence)  # Splice the sequence
+#output = open(f"{splice_comb}_spliced_genes.fa", "w")  # Open an output file for writing spliced genes
+with open (f"{splice_comb}_spliced_genes.fa", "w") as output:
+    for gene_name, sequence in genes.items(): # Iterate through each gene and its sequence
+        if splice(sequence):
+            spliced_genes[gene_name] = sequence
+            count = count_tata(sequence)
+            output.write(f">{gene_name}_TATAbox_number: {count}\n")
+            output.write(f"{sequence}\n")
+            #output.write(f"The TATA box number is: {count}\n")
+    '''new_sequence = splice(sequence)  # Splice the sequence
     spliced_genes[gene_name] = new_sequence  # Store the spliced sequence in the dictionary
     gene_name = ">" + gene_name + "\n"  # Format the gene name for FASTA output
     output.write(gene_name)  # Write the gene name to the output file
     new_sequence_o = new_sequence + "\n"  # Format the spliced sequence for FASTA output
     output.write(new_sequence_o)  # Write the spliced sequence to the output file
     count = count_tata(new_sequence)  # Count TATA boxes in the spliced sequence
-    output.write(f"TATA box number: {count}\n")  # Write the TATA box count to the output file
+    output.write(f"TATA box number: {count}\n")  # Write the TATA box count to the output file'''
 output.close()  # Close the output file

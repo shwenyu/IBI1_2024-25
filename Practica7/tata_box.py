@@ -15,7 +15,7 @@ def read_fasta(file_path):
             if line.startswith('>'):  # Check if the line is a header line
                 if current_gene is not None:  # If a gene was being processed, save its sequence
                     genes[current_gene] = ''.join(genes[current_gene])  # Join sequence parts
-                position = re.findall(r"(>\S+)_", line)  # Extract gene name using regex
+                position = re.findall(r">(\S+)_", line)  # Extract gene name using regex
                 if len(position) > 0:  # If a gene name is found
                     current_gene = position[0]  # Set the current gene name
                 genes[current_gene] = []  # Initialize a list to store sequence parts
