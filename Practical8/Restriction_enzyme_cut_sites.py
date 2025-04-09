@@ -1,17 +1,12 @@
 def recognition(dna, enzyme):  # Define a function to find the position of the enzyme in the DNA sequence
     len_enz = len(enzyme)  # Get the length of the enzyme sequence
     len_DNA = len(dna)  # Get the length of the DNA sequence
-    pos = []
-    flag = False
     for i in range(len_DNA-len_enz+1):  # Loop through the DNA sequence to check for matches
         cut = dna[i:i+len_enz]  # Extract a substring of the same length as the enzyme
         if cut == enzyme:  # Check if the substring matches the enzyme sequence
-            pos.append(i)  # Store the starting position of the match
-            flag = True
-    if flag == True:
-        return(pos)  # Return the position of the match
-    else:
-        return("Not found")  # Return "Not found" if no match is found
+            pos = i  # Store the starting position of the match
+            return(pos)  # Return the position of the match
+    return("Not found")  # Return "Not found" if no match is found
 
 def check(seq):  # Define a function to validate the sequence
     for i in range(len(seq)):  # Loop through each character in the sequence
@@ -21,11 +16,12 @@ def check(seq):  # Define a function to validate the sequence
 
 dna = input("DNA sequence:")  # Prompt the user to input a DNA sequence
 enzyme = input("Enzyme sequence:")  # Prompt the user to input an enzyme sequence
-if check(dna) and check(enzyme):
-    result = recognition(dna, enzyme)  # Check if both the DNA and enzyme sequences are valid
-    if isinstance(result, list):  # Check if the recognition function returns a valid position
-        print(f"The position(s) of enzyme: {result}")
+if check(dna) and check(enzyme):  # Check if both the DNA and enzyme sequences are valid
+    if isinstance(recognition(dna, enzyme), int):  # Check if the recognition function returns a valid position
+        beg = recognition(dna, enzyme)  # Get the starting position of the enzyme in the DNA
+        end = beg + len(enzyme) - 1  # Calculate the ending position of the enzyme in the DNA
+        print(f"The position of enzyme is from {beg} to {end}")  # Print the position of the enzyme
     else:
-        print(result)  # Print "Not found" if the enzyme is not in the DNA
+        print(recognition(dna, enzyme))  # Print "Not found" if the enzyme is not in the DNA
 else:
     print("Wrong sequence input!")  # Print an error message if the input sequences are invalid
