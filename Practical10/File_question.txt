@@ -1,0 +1,3 @@
+Question statement: What's the genral trend of DALYs of the world from 1990 to 2019
+Adressment: line 38 to 46 in dalys.py
+Discussion: 
