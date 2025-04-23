@@ -34,6 +34,10 @@ uk = dalys_data.loc[dalys_data.Entity=="United Kingdom", ["DALYs", "Year"]] # se
 france = dalys_data.loc[dalys_data.Entity=="France", ["DALYs", "Year"]] # select the DALYs and Year columns for France
 print("The DALys of France is",france.DALYs.mean()) # mean of DALYs in France
 print("The DALys of UK is",uk.DALYs.mean()) # mean of DALYs in the UK
+if uk.DALYs.mean() > france.DALYs.mean(): # compare the mean of DALYs in the UK and France
+    print("The DALYs of the UK is higher than France")
+else:
+    print("The DALYs of the UK is lower than France")
 plt.plot(uk.Year, uk.DALYs, 'go-') # "g/r/b" is the color of the line, "o/+/*" is the marker, "- or empty" is the line style
 plt.xticks(uk.Year,rotation=90) # rotate the x-axis labels for better readability
 plt.xlabel('Year')
