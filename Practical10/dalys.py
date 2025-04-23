@@ -3,11 +3,11 @@ import pandas as pd #Import the pandas library for data manipulation
 import numpy as np #Import the numpy library for numerical operations
 import matplotlib.pyplot as plt #Import the matplotlib library for plotting
 os.chdir('Practical10') #Set the current working directory to 'Practical10'
-#os.getcwd() #Check the current working directory
-#os.listdir() #List the files in the current directory
+os.getcwd() #Check the current working directory
+os.listdir() #List the files in the current directory
 dalys_data = pd.read_csv('dalys-rate-from-all-causes.csv') #Read the CSV file 'dalys-rate-from-all-causes.csv' into a DataFrame
-#dalys_data.info() # check the data types and non-null counts
-#print(dalys_data.head()) # check the first 5 rows
+dalys_data.info() # check the data types and non-null counts
+print(dalys_data.head()) # check the first 5 rows, and the default is 5 rows
 print(dalys_data.describe()) # summary statistics
 #print(dalys_data.iloc[0:2,0]) #check the specific value
 print(dalys_data.iloc[0:10,2]) # print the first 10 rows of the 3rd column(Year), and the 10th year of DALYs in Afghanistan is 1999
@@ -40,6 +40,7 @@ plt.xlabel('Year')
 plt.ylabel('DALYs')
 plt.title('DALYs in the UK')
 plt.show()
+
 #Following is the manipulation of DALYs of the world along time
 year_group = dalys_data.groupby('Year', as_index=False) # as_index=False means that the groupby object will not use the group labels as the index, and groupby will return a DataFrame with the same index as the original DataFrame
 year_group_mean = year_group.DALYs.mean() # calculate the mean of DALYs for each year
