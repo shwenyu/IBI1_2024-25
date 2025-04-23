@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt  # Import the matplotlib library for plotting
 import pandas as pd  # Import the pandas library for data manipulation
-
+import os
+os.chdir('Practical5')  # Set the current working directory to 'Practical5'
 Table2 = pd.read_excel("Table2.xlsx")  # Read the Excel file "Table2.xlsx" into a DataFrame
 uk_countries = list(Table2[Table2['Nation'] == "UK"]["Population"])  # Filter rows where 'Nation' is "UK" and extract the 'Population' column as a list
 uk_countries.sort()  # Sort the list of populations in ascending order
