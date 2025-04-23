@@ -11,7 +11,7 @@ dalys_data = pd.read_csv('dalys-rate-from-all-causes.csv') #Read the CSV file 'd
 print(dalys_data.describe()) # summary statistics
 #print(dalys_data.iloc[0:2,0]) #check the specific value
 print(dalys_data.iloc[0:10,2]) # print the first 10 rows of the 3rd column(Year), and the 10th year of DALYs in Afghanistan is 1999
-#print(dalys_data.iloc[0:5:2,0:2])
+print(dalys_data.iloc[0:5:2,:]) # print every 2nd row of the first 5 rows
 #print(dalys_data.iloc[[0,2],[0,2]])
 my_columns = [True, True, False,False]
 # Define a boolean list to filter specific columns.

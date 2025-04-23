@@ -1,3 +1,3 @@
-Question statement: What's the genral trend of DALYs of the world from 1990 to 2019
+Question statement: What's the genral trend of DALYs of the world from 1990 to 2019, and how this trend differs from that of England, why?
 Adressment: line 38 to 46 in dalys.py
-Discussion: Gernally descending from 1990 to 2019, and there was a peak at 1994
+Discussion: Gernally descending from 1990 to 2019, and there was a peak at 1994, the two trend almost overlaps, while the peak in 1994 might be some incidents happened that time in the rest of the world.
