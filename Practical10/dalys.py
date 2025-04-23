@@ -14,14 +14,20 @@ print(dalys_data.iloc[0:10,2]) # print the first 10 rows of the 3rd column(Year)
 #print(dalys_data.iloc[0:5:2,0:2])
 #print(dalys_data.iloc[[0,2],[0,2]])
 my_columns = [True, True, False,False]
+# Define a boolean list to filter specific columns.
+
 print(dalys_data.iloc[0:3,my_columns],'\n') #only show the 1st, 2nd, and 4th columns with the first 3 rows
 print(dalys_data.loc[0:5,'Entity'],'\n') #loc is based on the index name while iloc is based on the index number
 select_1990 = []
+# Initialize an empty list to store boolean values for filtering rows.
+
 for i in range(len(dalys_data)):
     if dalys_data['Year'][i] == 1990:
         select_1990.append(True)
     else:
         select_1990.append(False)
+# Iterate through the DataFrame and append True to the list if the year is 1990, otherwise append False.
+
 print(dalys_data.loc[select_1990,'DALYs']) #use Boolean indexing to select the rows where the year is 1990
 print(dalys_data.loc[dalys_data.Year == 1990,'DALYs']) # this is a more efficient way to do the same thing
 uk = dalys_data.loc[dalys_data.Entity=="United Kingdom", ["DALYs", "Year"]] # select the DALYs and Year columns for the UK
