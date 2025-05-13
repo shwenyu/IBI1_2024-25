@@ -1,0 +1,11 @@
+• The length and subcellular localisation of the human SOD2 protein.
+	1, The length is 222 in isomer 1, 183 in isomer 2, 162 in isomer 3, 176 in 	isomer 4
+	2, mainly mitochondrion matrix (also mitochondrion and mitochondrial nucleoid 	are mentioned)
+• The range of percentage identities in the reported online BLAST results.
+	58.1 - 100
+• The alignment score and percentage of identical amino acids for each of the three comparisons that you performed using Python
+	Mouse vs Human: Score = 1097.0, Identity = 90.09%
+	Human vs Random: Score = -250.0, Identity = 4.95%
+	Mouse vs Random: Score = -258.0, Identity = 3.60%
+• A statement recording which of these two sequences are most closely related
+	Huamn and Mouse are most closely related
