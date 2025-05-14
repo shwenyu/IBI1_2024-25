@@ -11,22 +11,22 @@ def read_fasta(file_path):
         for line in file:  # Iterate through each line in the file
             line = line.strip()  # Remove leading/trailing whitespace from the line
             if line.startswith('>'):  # Check if the line is a header line
-                continue
+                continue # Skip header lines
             else:  # If the line is a sequence line
                 protein += line
     return protein  # Return the protein sequence
 
-def align(seq1, seq2):
-    length = len(seq1)
-    score = 0
-    edit_distance = 0
-    for i in range(length):
-        val = matrix[seq1[i]][seq2[i]]
-        if seq1[i] != seq2[i]:
-            edit_distance += 1
-        score += val
-    identity = (length - edit_distance) / length 
-    return score, identity
+def align(seq1, seq2): # Function to align two sequences
+    length = len(seq1) # Get the length of the sequences
+    score = 0 # Initialize score to 0
+    edit_distance = 0 # Initialize edit distance to 0
+    for i in range(length): # Iterate through each position in the sequences
+        val = matrix[seq1[i]][seq2[i]] # Get the score from the BLOSUM matrix
+        if seq1[i] != seq2[i]: # If the characters are different
+            edit_distance += 1 # Increment edit distance
+        score += val # Add the score to the total score
+    identity = (length - edit_distance) / length # Calculate identity
+    return score, identity # Read the protein sequences from the FASTA files
 
 # Read the protein sequences from the FASTA files
 human = read_fasta('human.fasta')
