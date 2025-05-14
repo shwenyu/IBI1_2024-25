@@ -1,8 +1,9 @@
-import blosum as bl
+import blosum as bl #use the blosum module for scoring !!!!! if don't have it, install it using pip install blosum
+# This script reads protein sequences from FASTA files and aligns them using the BLOSUM62 scoring matrix.
 import os
-os.chdir('Practical13')
+os.chdir('Practical13') # Change the working directory to 'Practical13'
 # Import the BLOSUM matrix for scoring
-matrix = bl.BLOSUM(62)
+matrix = bl.BLOSUM(62) # Define a function to read protein sequences from a FASTA file
 
 def read_fasta(file_path):
     protein = ''
