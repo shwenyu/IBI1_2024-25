@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt  # Import the matplotlib library for plotting
 table = {"JavaScript":62.3,"HTML":52.9,"Python":51,"SQL":51,"TypeScript":38.5}  # Define a dictionary with programming languages and their popularity percentages
+print(table) # Print the dictionary
 lan = "Python"  # Set the variable 'lan' to the language of interest
 summ = sum(table.values())  # Calculate the sum of all popularity percentages
 percent = table[lan]/summ  # Calculate the percentage contribution of the selected language
