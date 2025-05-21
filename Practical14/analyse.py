@@ -26,7 +26,7 @@ def parse_xml_dom(file):  # Parse the XML file using DOM parser and print the nu
         "cellular_component": result_cellular_component  # Map cellular components
     }
     for node in terms:  # Iterate through each "term" element
-        node_id = node.getElementsByTagName("id")[0].childNodes[0].nodeValue  # Get the term ID
+        #node_id = node.getElementsByTagName("id")[0].childNodes[0].nodeValue  # Get the term ID
         node_name = node.getElementsByTagName("name")[0].childNodes[0].nodeValue  # Get the term name
         node_namespace = node.getElementsByTagName("namespace")[0].childNodes[0].nodeValue  # Get the term namespace
         is_a = node.getElementsByTagName("is_a")  # Get all "is_a" elements
@@ -78,9 +78,9 @@ def parse_xml_sax(file):  # Parse the XML file using SAX parser and print the nu
             
         def endElement(self, name):  # Handle the end of an XML element
             if name == "name":  # If the element is "name"
-                self.name = self.name.strip()  # Strip whitespace from the term name
+                self.name = self.name #.strip()  # Strip whitespace from the term name
             elif name == "namespace":  # If the element is "namespace"
-                self.namespace = self.namespace.strip()  # Strip whitespace from the namespace
+                self.namespace = self.namespace #.strip()  # Strip whitespace from the namespace
             elif name == "term":  # If the element is "term"
                 if self.namespace in NAMESPACES_TO_TRACK and self.name:  # If the namespace is tracked and the name is valid
                     self.result[self.namespace][self.name] = self.is_a_count  # Store the "is_a" count in the result dictionary
