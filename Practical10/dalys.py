@@ -49,9 +49,11 @@ plt.show()
 year_group = dalys_data.groupby('Year', as_index=False) # as_index=False means that the groupby object will not use the group labels as the index, and groupby will return a DataFrame with the same index as the original DataFrame
 year_group_mean = year_group.DALYs.mean() # calculate the mean of DALYs for each year
 #print(year_group_mean)
-plt.plot(year_group_mean.Year, year_group_mean.DALYs, 'bo-')
+plt.plot(year_group_mean.Year, year_group_mean.DALYs, 'bo-', label = "World") # "b" is the color of the line, "o" is the marker, "- or empty" is the line style
+plt.plot(uk.Year, uk.DALYs, 'go-',label = "UK") # "g/r/b" is the color of the line, "o/+/*" is the marker, "- or empty" is the line style
 plt.xticks(rotation=90) # rotate the x-axis labels for better readability
 plt.xlabel('Year')
 plt.ylabel('DALYs')
-plt.title('DALYs in the world')
+plt.title('DALYs in the world and UK')
+plt.legend() # add a legend to the plot
 plt.show()

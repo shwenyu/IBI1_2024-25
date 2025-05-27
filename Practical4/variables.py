@@ -23,6 +23,7 @@ for X in (True, False):  # Iterate over the boolean values True and False for 'X
 # hwenyu@hanyudeMacBook-Pro IBI1_2024-25 % /usr/bin/python3 /Users/shwenyu/Documents/GitHub/IBI1_2024-25/Practica
 # l4/variables.py
 # f > c
+# True and True = True
 # True and False = False
 # False and True = False
 # False and False = False
